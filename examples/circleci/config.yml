@@ -1,0 +1,96 @@
+defaults: &defaults
+  working_directory: /go/src/github.com/eversc/go-pr-checks
+
+version: 2
+jobs:
+
+  go_fmt:
+    <<: *defaults
+
+    docker:
+    - image: eversc/go-pr-checks
+
+    steps:
+    - checkout
+
+    - run:
+        name: ensure gofmt
+        command: |
+          test -z $(gofmt -s -l $(find . -iname '*.go' -type f | grep -v /vendor/))
+
+  go_vet:
+    <<: *defaults
+
+    docker:
+    - image: eversc/go-pr-checks
+
+    steps:
+    - checkout
+
+    - run:
+        name: go vet
+        command: go vet ./...
+
+  go_cyclo:
+    <<: *defaults
+
+    docker:
+    - image: eversc/go-pr-checks
+
+    steps:
+    - checkout
+
+    - run:
+        name: go_cyclo
+        command: gocyclo -over 6 cmd utils
+
+  go_lint:
+    <<: *defaults
+
+    docker:
+    - image: eversc/go-pr-checks
+
+    steps:
+    - checkout
+
+    - run:
+        name: golint
+        command: golint -set_exit_status $(go list ./...)
+
+  go_build:
+    <<: *defaults
+
+    docker:
+    - image: eversc/go-pr-checks
+
+    steps:
+    - checkout
+
+    - run:
+        name: go build
+        command: go build
+
+workflows:
+  version: 2
+  pr_pipeline:
+    jobs:
+    - go_fmt:
+        filters:
+          branches:
+            ignore: master
+    - go_vet:
+        filters:
+          branches:
+            ignore: master
+    - go_cyclo:
+        filters:
+          branches:
+            ignore: master
+    - go_lint:
+        filters:
+          branches:
+            ignore: master
+    - go_build:
+        filters:
+          branches:
+            ignore: master
