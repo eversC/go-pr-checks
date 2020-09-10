@@ -1,4 +1,4 @@
-FROM golang:1.14.4-alpine
+FROM golang:1.15.2-alpine
 
 RUN apk --no-cache add git openssh gcc musl-dev
 
