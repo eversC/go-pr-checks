@@ -16,4 +16,4 @@ jobs:
         docker run -d --name go-pr-checks-container go-pr-checks-image tail -f /dev/null
         sleep 20
         docker ps
-        docker exec -d go-pr-checks-container test_cmds.sh
+        docker exec -d go-pr-checks-container /bin/sh test_cmds.sh
