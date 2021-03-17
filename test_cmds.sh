@@ -1,3 +1,4 @@
+#!/bin/sh
 exists() {
   if ! command -v "$1" >/dev/null 2>&1 ; then
     echo "requires $1"
@@ -5,5 +6,7 @@ exists() {
   fi
 }
 
-exists gocyclop
+exists go
+exists gocyclo
 exists gofmt
+exists golint

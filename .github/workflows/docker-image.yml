@@ -10,11 +10,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: Test cmds in docker image
       run: |
         docker build . --file Dockerfile --tag go-pr-checks-image
         docker run -i go-pr-checks-image sh -c './test_cmds.sh'
-        # docker run -d --name go-pr-checks-container go-pr-checks-image tail -f /dev/null
-        # sleep 20
-        # docker ps
-        # docker exec -i go-pr-checks-container sh -c './test_cmds.sh'
