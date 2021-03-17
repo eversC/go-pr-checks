@@ -5,5 +5,5 @@ exists() {
   fi
 }
 
-exists gocyclo
+exists gocyclop
 exists gofmt
