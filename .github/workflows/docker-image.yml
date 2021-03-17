@@ -1,0 +1,16 @@
+name: Docker Image CI
+
+on: [pull_request]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test cmds in docker image
+      run: |
+        docker build . --file Dockerfile --tag go-pr-checks-image
+        docker run -i go-pr-checks-image sh -c './test_cmds.sh'
