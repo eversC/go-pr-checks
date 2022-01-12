@@ -1,0 +1,57 @@
+version: 2.1
+
+aliases:
+  - &docker-image
+    docker:
+      - image: docker
+  - &setup-remote-docker
+    setup_remote_docker:
+      docker_layer_caching: true
+  - &only-master
+    filters:
+      branches:
+        only: master
+  - &build-and-push
+    run:
+      name: "Docker  build and push"
+      command: |
+        IMAGE_NAME=ovotech/go-pr-checks
+        docker build -t $IMAGE_NAME:$DOCKER_IMAGE_TAG -f $DOCKERFILE_PATH .
+        echo $DOCKER_PASS | docker login -u=$DOCKER_USER --password-stdin
+        docker push $IMAGE_NAME:$DOCKER_IMAGE_TAG
+  - &dockerfile-path-1-13
+    environment:
+      - DOCKERFILE_PATH: docker/Dockerfile_1_13
+      - DOCKER_IMAGE_TAG: 1.13
+  - &dockerfile-path-1-14
+    environment:
+      - DOCKERFILE_PATH: docker/Dockerfile_1_14
+      - DOCKER_IMAGE_TAG: 1.14
+  - &dockerfile-path-1-15
+    environment:
+      - DOCKERFILE_PATH: docker/Dockerfile_1_15
+      - DOCKER_IMAGE_TAG: 1.15
+  - &dockerfile-path-1-16
+    environment:
+      - DOCKERFILE_PATH: docker/Dockerfile_1_16
+      - DOCKER_IMAGE_TAG: 1.16
+  - &dockerfile-path-1-17
+    environment:
+      - DOCKERFILE_PATH: docker/Dockerfile_1_17
+      - DOCKER_IMAGE_TAG: 1.17
+
+jobs:
+  docker_build_and_push_1_13:
+    <<: *defaults
+    <<: *docker-image
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - <<: *build-and-push
+
+workflows:
+  commit:
+    jobs:
+      - docker_build_and_push:
+          <<: *only-master
