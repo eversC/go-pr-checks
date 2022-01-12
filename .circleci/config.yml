@@ -42,7 +42,6 @@ aliases:
 
 jobs:
   docker_build_and_push_1_13:
-    <<: *defaults
     <<: *docker-image
     steps:
       - checkout
