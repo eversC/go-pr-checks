@@ -46,7 +46,7 @@ jobs:
     <<: *dockerfile-path-1-13
     steps:
       - checkout
-      - <<: setup-remote-docker
+      - <<: *setup-remote-docker
       - <<: *build-and-push
 
 workflows:
