@@ -43,10 +43,10 @@ aliases:
 jobs:
   docker_build_and_push_1_13:
     <<: *docker-image
+    <<: *dockerfile-path-1-13
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
+      - <<: setup-remote-docker
       - <<: *build-and-push
 
 workflows:
