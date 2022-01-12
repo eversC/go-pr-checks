@@ -7,10 +7,10 @@ aliases:
   - &setup-remote-docker
     setup_remote_docker:
       docker_layer_caching: true
-  - &only-master
+  - &only-main
     filters:
       branches:
-        only: master
+        only: main
   - &build-and-push
     run:
       name: "Docker  build and push"
@@ -53,4 +53,4 @@ workflows:
   commit:
     jobs:
       - docker_build_and_push_1_13:
-          <<: *only-master
+          <<: *only-main
