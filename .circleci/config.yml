@@ -15,7 +15,7 @@ aliases:
     run:
       name: "Docker  build and push"
       command: |
-        IMAGE_NAME=ovotech/go-pr-checks
+        IMAGE_NAME=eversc/go-pr-checks
         docker build -t $IMAGE_NAME:$DOCKER_IMAGE_TAG -f $DOCKERFILE_PATH .
         echo $DOCKER_PASS | docker login -u=$DOCKER_USER --password-stdin
         docker push $IMAGE_NAME:$DOCKER_IMAGE_TAG
