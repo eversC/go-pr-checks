@@ -3,7 +3,10 @@ FROM golang:1.15.15-alpine
 RUN apk --no-cache add git openssh gcc musl-dev
 
 ENV GO111MODULE=on
-RUN go get github.com/fzipp/gocyclo@v0.3.0
+RUN go get github.com/fzipp/gocyclo@v0.3.1
+WORKDIR /go/pkg/mod/github.com/fzipp/gocyclo@v0.3.1/cmd/gocyclo
+RUN go build && cp gocyclo /go/bin
+WORKDIR /go
 RUN go get golang.org/x/lint/golint
 
 COPY test_cmds.sh .
