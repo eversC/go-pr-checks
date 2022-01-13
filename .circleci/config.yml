@@ -7,6 +7,10 @@ aliases:
   - &setup-remote-docker
     setup_remote_docker:
       docker_layer_caching: true
+  - &ignore-main
+    filters:
+      branches:
+        ignore: main
   - &only-main
     filters:
       branches:
@@ -19,6 +23,12 @@ aliases:
         docker build -t $IMAGE_NAME:$DOCKER_IMAGE_TAG -f $DOCKERFILE_PATH .
         echo $DOCKER_PASS | docker login -u=$DOCKER_USER --password-stdin
         docker push $IMAGE_NAME:$DOCKER_IMAGE_TAG
+  - &build
+    run:
+      name: "Docker  build"
+      command: |
+        IMAGE_NAME=eversc/go-pr-checks
+        docker build -t $IMAGE_NAME:$DOCKER_IMAGE_TAG -f $DOCKERFILE_PATH .
   - &dockerfile-path-1-13
     environment:
       - DOCKERFILE_PATH: docker/Dockerfile_1_13
@@ -41,9 +51,72 @@ aliases:
       - DOCKER_IMAGE_TAG: 1.17
 
 jobs:
+  docker_build_1_13:
+    <<: *docker-image
+    <<: *dockerfile-path-1-13
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build
   docker_build_and_push_1_13:
     <<: *docker-image
     <<: *dockerfile-path-1-13
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build-and-push
+  docker_build_1_14:
+    <<: *docker-image
+    <<: *dockerfile-path-1-14
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build
+  docker_build_and_push_1_14:
+    <<: *docker-image
+    <<: *dockerfile-path-1-14
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build-and-push
+  docker_build_1_15:
+    <<: *docker-image
+    <<: *dockerfile-path-1-15
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build
+  docker_build_and_push_1_15:
+    <<: *docker-image
+    <<: *dockerfile-path-1-15
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build-and-push
+  docker_build_1_16:
+    <<: *docker-image
+    <<: *dockerfile-path-1-16
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build
+  docker_build_and_push_1_16:
+    <<: *docker-image
+    <<: *dockerfile-path-1-16
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build-and-push
+  docker_build_1_17:
+    <<: *docker-image
+    <<: *dockerfile-path-1-17
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build
+  docker_build_and_push_1_17:
+    <<: *docker-image
+    <<: *dockerfile-path-1-17
     steps:
       - checkout
       - <<: *setup-remote-docker
@@ -52,5 +125,23 @@ jobs:
 workflows:
   commit:
     jobs:
+      - docker_build_1_13:
+          <<: *ignore-main
       - docker_build_and_push_1_13:
+          <<: *only-main
+      - docker_build_1_14:
+          <<: *ignore-main
+      - docker_build_and_push_1_14:
+          <<: *only-main
+      - docker_build_1_15:
+          <<: *ignore-main
+      - docker_build_and_push_1_15:
+          <<: *only-main
+      - docker_build_1_16:
+          <<: *ignore-main
+      - docker_build_and_push_1_16:
+          <<: *only-main
+      - docker_build_1_17:
+          <<: *ignore-main
+      - docker_build_and_push_1_17:
           <<: *only-main
