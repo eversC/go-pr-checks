@@ -29,6 +29,7 @@ aliases:
       command: |
         IMAGE_NAME=eversc/go-pr-checks
         docker build -t $IMAGE_NAME:$DOCKER_IMAGE_TAG -f $DOCKERFILE_PATH .
+        docker run -i $IMAGE_NAME:$DOCKER_IMAGE_TAG sh -c './test_cmds.sh'
   - &dockerfile-path-1-13
     environment:
       - DOCKERFILE_PATH: docker/Dockerfile_1_13
