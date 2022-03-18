@@ -1,0 +1,8 @@
+FROM golang:1.18.0-alpine
+
+RUN apk --no-cache add git openssh gcc musl-dev
+
+RUN go install github.com/fzipp/gocyclo/cmd/gocyclo@latest
+RUN go install golang.org/x/lint/golint@latest
+
+COPY test_cmds.sh .
