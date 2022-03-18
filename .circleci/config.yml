@@ -130,6 +130,13 @@ jobs:
       - checkout
       - <<: *setup-remote-docker
       - <<: *build-and-push
+  docker_build_1_18:
+    <<: *docker-image
+    <<: *dockerfile-path-1-18
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build
   docker_build_and_push_1_18:
     <<: *docker-image
     <<: *dockerfile-path-1-18
