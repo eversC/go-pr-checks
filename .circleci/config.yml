@@ -50,9 +50,13 @@ aliases:
     environment:
       - DOCKERFILE_PATH: docker/Dockerfile_1_17
       - DOCKER_IMAGE_TAG: 1.17
+  - &dockerfile-path-1-18
+    environment:
+      - DOCKERFILE_PATH: docker/Dockerfile_1_18
+      - DOCKER_IMAGE_TAG: 1.18
   - &dockerfile-path-latest
     environment:
-      - DOCKERFILE_PATH: docker/Dockerfile_1_17
+      - DOCKERFILE_PATH: docker/Dockerfile_1_18
       - DOCKER_IMAGE_TAG: latest
 
 jobs:
@@ -126,6 +130,20 @@ jobs:
       - checkout
       - <<: *setup-remote-docker
       - <<: *build-and-push
+  docker_build_1_18:
+    <<: *docker-image
+    <<: *dockerfile-path-1-18
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build
+  docker_build_and_push_1_18:
+    <<: *docker-image
+    <<: *dockerfile-path-1-18
+    steps:
+      - checkout
+      - <<: *setup-remote-docker
+      - <<: *build-and-push
   docker_build_and_push_latest:
     <<: *docker-image
     <<: *dockerfile-path-latest
@@ -156,6 +174,10 @@ workflows:
       - docker_build_1_17:
           <<: *ignore-main
       - docker_build_and_push_1_17:
+          <<: *only-main
+      - docker_build_1_18:
+          <<: *ignore-main
+      - docker_build_and_push_1_18:
           <<: *only-main
       - docker_build_and_push_latest:
           <<: *only-main
