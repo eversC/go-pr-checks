@@ -53,7 +53,7 @@ aliases:
   - &dockerfile-path-1-18
     environment:
       - DOCKERFILE_PATH: docker/Dockerfile_1_18
-      - DOCKER_IMAGE_TAG: 1.17
+      - DOCKER_IMAGE_TAG: 1.18
   - &dockerfile-path-latest
     environment:
       - DOCKERFILE_PATH: docker/Dockerfile_1_18
