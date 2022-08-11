@@ -32,31 +32,31 @@ aliases:
         docker run -i $IMAGE_NAME:$DOCKER_IMAGE_TAG sh -c './test_cmds.sh'
   - &dockerfile-path-1-13
     environment:
-      - DOCKERFILE_PATH: docker/Dockerfile_1_13
+      - DOCKERFILE_PATH: docker/1_13/Dockerfile_1_13
       - DOCKER_IMAGE_TAG: 1.13
   - &dockerfile-path-1-14
     environment:
-      - DOCKERFILE_PATH: docker/Dockerfile_1_14
+      - DOCKERFILE_PATH: docker/1_14/Dockerfile_1_14
       - DOCKER_IMAGE_TAG: 1.14
   - &dockerfile-path-1-15
     environment:
-      - DOCKERFILE_PATH: docker/Dockerfile_1_15
+      - DOCKERFILE_PATH: docker/1_15/Dockerfile_1_15
       - DOCKER_IMAGE_TAG: 1.15
   - &dockerfile-path-1-16
     environment:
-      - DOCKERFILE_PATH: docker/Dockerfile_1_16
+      - DOCKERFILE_PATH: docker/1_16/Dockerfile_1_16
       - DOCKER_IMAGE_TAG: 1.16
   - &dockerfile-path-1-17
     environment:
-      - DOCKERFILE_PATH: docker/Dockerfile_1_17
+      - DOCKERFILE_PATH: docker/1_17/Dockerfile_1_17
       - DOCKER_IMAGE_TAG: 1.17
   - &dockerfile-path-1-18
     environment:
-      - DOCKERFILE_PATH: docker/Dockerfile_1_18
+      - DOCKERFILE_PATH: docker/1_18/Dockerfile_1_18
       - DOCKER_IMAGE_TAG: 1.18
   - &dockerfile-path-latest
     environment:
-      - DOCKERFILE_PATH: docker/Dockerfile_1_18
+      - DOCKERFILE_PATH: docker/1_19/Dockerfile_1_18
       - DOCKER_IMAGE_TAG: latest
 
 jobs:
