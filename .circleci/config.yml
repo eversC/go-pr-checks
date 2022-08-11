@@ -56,7 +56,7 @@ aliases:
       - DOCKER_IMAGE_TAG: 1.18
   - &dockerfile-path-latest
     environment:
-      - DOCKERFILE_PATH: docker/1_19/Dockerfile_1_18
+      - DOCKERFILE_PATH: docker/1_18/Dockerfile_1_18
       - DOCKER_IMAGE_TAG: latest
 
 jobs:
