@@ -61,7 +61,7 @@ aliases:
   - &dockerfile-path-1-20
     environment:
       - DOCKERFILE_PATH: docker/1_20/Dockerfile_1_20
-      - DOCKER_IMAGE_TAG: 1.20
+      - DOCKER_IMAGE_TAG: "1.20"
   - &dockerfile-path-latest
     environment:
       - DOCKERFILE_PATH: docker/1_20/Dockerfile_1_20
